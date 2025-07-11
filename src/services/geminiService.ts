@@ -1,13 +1,11 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { StructuredReport, Customer, InterventionReport, Appointment } from '../types';
 
-// Ottieni la chiave API dalle variabili d'ambiente di Vite
 const getApiKey = (): string => {
-  // In produzione, Vercel userà le variabili d'ambiente, in sviluppo Vite
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   
   if (!apiKey) {
-    throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente VITE_GEMINI_API_KEY sia impostata.");
+    throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente VITE_GEMINI_API_KEY sia impostata su Vercel.");
   }
   
   return apiKey;
@@ -103,7 +101,6 @@ export const findDataWithAI = async (
     
     const customerMap = new Map(contextData.customers.map(c => [c.id, c.name]));
     
-    // Riduciamo la quantità di dati inviati per ottimizzare
     const leanContext = {
         customers: contextData.customers.map(c => ({ id: c.id, name: c.name, email: c.email, vatNumber: c.vatNumber })),
         reports: contextData.reports.map(r => ({
