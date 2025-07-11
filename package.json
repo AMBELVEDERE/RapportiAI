@@ -9,13 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.9.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@google/genai": "^1.9.0"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0"
-  }
+  "@tailwindcss/postcss": "^4.0.0", // Versione più recente disponibile. Se non la trovi, usa la precedente stabile.
+  "tailwindcss": "^3.4.3",
+  "postcss": "^8.4.38",
+  "autoprefixer": "^10.4.19",
+  "vite": "^5.0.0", // Assicurati che il tuo Vite sia aggiornato
+  // ... altre tue dipendenze di sviluppo
+},
 }

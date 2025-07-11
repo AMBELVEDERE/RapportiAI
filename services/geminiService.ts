@@ -2,11 +2,11 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { StructuredReport, Customer, InterventionReport, Appointment } from '../types';
 
-if (!process.env.API_KEY) {
+if (!import.meta.env.VITE_API_KEY) { 
   throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente process.env.API_KEY sia impostata.");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY as string })
 
 const reportSchema = {
   type: Type.OBJECT,
