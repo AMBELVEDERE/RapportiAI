@@ -1,12 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { StructuredReport, Customer, InterventionReport, Appointment } from '../types';
 
-// 🔧 CORREZIONE: Usa VITE_GEMINI_API_KEY invece di VITE_API_KEY
+// Ottieni la chiave API dalle variabili d'ambiente di Vite
 const getApiKey = (): string => {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  // In produzione, Vercel userà le variabili d'ambiente, in sviluppo Vite
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
   
   if (!apiKey) {
-    throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente VITE_GEMINI_API_KEY sia impostata su Vercel.");
+    throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente VITE_GEMINI_API_KEY sia impostata.");
   }
   
   return apiKey;
