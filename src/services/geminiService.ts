@@ -1,12 +1,25 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { StructuredReport, Customer, InterventionReport, Appointment } from '../types';
 
-if (!import.meta.env.VITE_API_KEY) { 
-  throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente process.env.API_KEY sia impostata.");
-}
+// 🔧 CORREZIONE: Usa VITE_GEMINI_API_KEY invece di VITE_API_KEY
+const getApiKey = (): string => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  
+  if (!apiKey) {
+    throw new Error("API_KEY non trovata. Assicurati che la variabile d'ambiente VITE_GEMINI_API_KEY sia impostata su Vercel.");
+  }
+  
+  return apiKey;
+};
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY as string })
+let ai: GoogleGenAI;
+
+try {
+  ai = new GoogleGenAI({ apiKey: getApiKey() });
+} catch (error) {
+  console.error("Errore inizializzazione GoogleGenAI:", error);
+  throw error;
+}
 
 const reportSchema = {
   type: Type.OBJECT,
